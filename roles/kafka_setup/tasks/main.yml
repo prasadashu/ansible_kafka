@@ -10,14 +10,22 @@
     dest: /opt/kafka
 
 - name: Setup environment variables
-  shell: "export PATH=$PATH:/opt/kafka/bin"
+  shell: "export PATH=$PATH:/opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/bin"
 
 - name: Setting up Kafka server properties
+  lineinfile:
+    path: /opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/config/server.properties
+    regex: "^advertised.listeners="
+    line: advertised.listeners=PLAINTEXT://{{ ansible_hostname }}:9092
 
 - name: Setting up Kafka server listeners
-
-- name: Connecting Kafka to Zookeeper
+  lineinfile:
+    path: 
+    regex: "^zookeeper.connect="
+    line: zookeeper.connect={{ ansible_hostname }}:2181
 
 - name: Start Zookeeper server
+  shell: zookeeper-server-start.sh /opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/config/zookeeper.properties &
 
 - name: Start Kafka server
+  shell: kafka-server-start.sh /opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/config/server.properties &

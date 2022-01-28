@@ -18,13 +18,13 @@
 - name: Setting up Kafka server properties
   lineinfile:
     path: /opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/config/server.properties
-    regex: "^advertised.listeners="
+    regexp: "^advertised.listeners="
     line: advertised.listeners=PLAINTEXT://{{ ansible_hostname }}:9092
 
 - name: Setting up Kafka server listeners
   lineinfile:
     path: /opt/kafka/kafka_{{ scala_version }}-{{ kafka_version }}/config/server.properties
-    regex: "^zookeeper.connect="
+    regexp: "^zookeeper.connect="
     line: zookeeper.connect={{ ansible_hostname }}:2181
 
 - name: Start Zookeeper server

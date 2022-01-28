@@ -10,4 +10,14 @@
     dest: /opt/kafka
 
 - name: Setup environment variables
-  shell: "PATH=$PATH:"
+  shell: "export PATH=$PATH:/opt/kafka/bin"
+
+- name: Setting up Kafka server properties
+
+- name: Setting up Kafka server listeners
+
+- name: Connecting Kafka to Zookeeper
+
+- name: Start Zookeeper server
+
+- name: Start Kafka server

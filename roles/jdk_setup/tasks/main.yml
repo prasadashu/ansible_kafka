@@ -1,0 +1,14 @@
+---
+- name: Download JDK
+  package:
+    name: "{{ java_version }}"
+    state: present
+
+- name: Check Java version
+  command: java -version
+  register: java_version
+  changed_when: "'changed' in java_version.stdout"
+
+- name: Print Java version
+  debug:
+    msg: "{{ java_version }}"
